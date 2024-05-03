@@ -1,10 +1,12 @@
 "use client";
 
+import DashboardHeader from "@/components/dashboard/dashboardheader";
+import { Organization } from "@/types/organization";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const OrganizationPage = () => {
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -52,6 +54,7 @@ const OrganizationPage = () => {
 
   return (
     <div>
+      <DashboardHeader organizations={organizations} />
       <h1>Organizations</h1>
       {organizations.length > 0 ? (
         <ul>
