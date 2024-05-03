@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_02_073433) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_03_051112) do
+  create_table "medical_records", force: :cascade do |t|
+    t.string "name"
+    t.string "part"
+    t.string "treatment_status"
+    t.text "diagnosis"
+    t.text "memo"
+    t.string "date_of_injury"
+    t.string "return_date"
+    t.integer "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_medical_records_on_organization_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "organization_id", null: false
@@ -35,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_073433) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "medical_records", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
 end

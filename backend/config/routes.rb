@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'memberships/create'
-  get 'organizations/create'
   namespace "api" do
     resources :users, only: %i[update]
     # resources :users, only: %i[create, update]
@@ -15,5 +13,7 @@ Rails.application.routes.draw do
     # resources :organizations, only: [:create]
     resources :organizations, only: [:index, :create]
     resources :memberships, only: [:create]
+
+    resources :medical_records, only: [:index, :show, :create, :update, :destroy]
   end
 end
