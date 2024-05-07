@@ -7,4 +7,5 @@ export type MedicalRecord = {
   memo?: string;
   date_of_injury: string;
   return_date?: string;
+  organization_id: number;
 };

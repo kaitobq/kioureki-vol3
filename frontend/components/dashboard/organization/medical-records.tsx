@@ -3,7 +3,7 @@
 
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { MedicalRecord } from "@/types/medicalrecord";
+import { MedicalRecord } from "@/types/medical-record";
 import Link from "next/link";
 import AddMedicalRecord from "./add-medical-record";
 

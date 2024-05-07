@@ -3,7 +3,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MedicalRecord } from "@/types/medicalrecord"; // 医療記録の型定義をインポート
+import { MedicalRecord } from "@/types/medical-record"; // 医療記録の型定義をインポート
 import { useRouter } from "next/navigation";
 
 interface MedicalRecordDetailProps {
