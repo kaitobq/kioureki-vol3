@@ -10,7 +10,7 @@ interface User {
   email: string;
 }
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -67,7 +67,7 @@ const Dashboard = () => {
             個人で利用する
           </a>
         </Link>
-        <Link href="/dashoboard/organization" legacyBehavior>
+        <Link href="/dashboard/organization" legacyBehavior>
           <a className="inline-block w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110">
             団体で利用する
           </a>
@@ -77,4 +77,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
