@@ -6,11 +6,14 @@ import MedicalRecords from "@/components/dashboard/organization/medical-records"
 import MedicalRecordDetail from "@/components/dashboard/organization/medical-record-detail"; // 医療記録詳細コンポーネントをインポート
 import { Organization } from "@/types/organization";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const OrganizationPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -19,6 +22,16 @@ const OrganizationPage = () => {
   const [currentMedicalRecordId, setCurrentMedicalRecordId] = useState<
     number | null
   >(null); // 医療記録IDの状態
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   useEffect(() => {
     const fetchOrganizations = async () => {
@@ -38,13 +51,16 @@ const OrganizationPage = () => {
         );
 
         if (response.data.length === 0) {
-          setSearchParams({}); // どの
+          setError("No organization found");
         } else {
           setOrganizations(response.data);
           const initialOrgId =
             searchParams.get("organization_id") ||
             response.data[0].id.toString();
-          setSearchParams({ organization_id: initialOrgId }, { replace: true });
+          router.push(
+            pathname + "?" + createQueryString("organization_id", initialOrgId)
+          );
+          // setSearchParams({ organization_id: initialOrgId }, { replace: true });
           setCurrentOrganization(
             response.data.find((o: any) => o.id.toString() === initialOrgId) ||
               null
@@ -97,9 +113,14 @@ const OrganizationPage = () => {
         currentOrganization={currentOrganization}
         setCurrentOrganization={(org: Organization) => {
           setCurrentOrganization(org);
-          setSearchParams(
-            { organization_id: org?.id.toString() },
-            { replace: true }
+          // setSearchParams(
+          //   { organization_id: org?.id.toString() },
+          //   { replace: true }
+          // );
+          router.push(
+            pathname +
+              "?" +
+              createQueryString("organization_id", org?.id.toString())
           );
         }}
       />

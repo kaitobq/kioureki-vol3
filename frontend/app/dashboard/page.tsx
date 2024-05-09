@@ -1,9 +1,11 @@
 "use client";
 // pages/dashboard.tsx
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useNavigate } from "react-router-dom";
+import NavBar from "@/components/navbar";
 
 interface User {
   name: string;
@@ -14,6 +16,8 @@ const DashboardPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -47,33 +51,38 @@ const DashboardPage = () => {
     verifyToken();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (!user && !loading) {
-    return <div>Access Denied</div>;
-  }
+  // if (!user && !loading) {
+  //   return <div>Access Denied</div>;
+  // }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome, {user?.name}</p>
-
+    <Suspense fallback={<NavBar />}>
       <div>
-        <h3>ご利用方法を選んでください</h3>
-        <Link href="" legacyBehavior>
-          <a className="inline-block w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110">
-            個人で利用する
-          </a>
-        </Link>
-        <Link href="/dashboard/organization" legacyBehavior>
-          <a className="inline-block w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110">
+        <h1>Dashboard</h1>
+        <p>Welcome, {user?.name}</p>
+
+        <div>
+          <h3>ご利用方法を選んでください</h3>
+          <Link href="" legacyBehavior>
+            <a className="inline-block w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110">
+              個人で利用する
+            </a>
+          </Link>
+          {/* <Link href="/dashboard/organization" legacyBehavior> */}
+          <button
+            onClick={() => navigate("/dashboard/organization")}
+            className="inline-block w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110"
+          >
             団体で利用する
-          </a>
-        </Link>
+          </button>
+          {/* </Link> */}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 
