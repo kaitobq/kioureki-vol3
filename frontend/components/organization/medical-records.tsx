@@ -92,7 +92,7 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
             key={record.id}
             className="flex flex-row w-full p-2 bg-gray-100 my-2 rounded-lg border border-black cursor-pointer"
             href={{
-              pathname: "/dashboard/organization",
+              pathname: "/organization",
               query: {
                 organization_id: organizationId,
                 medical_record_id: record.id,

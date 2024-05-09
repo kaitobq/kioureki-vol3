@@ -4,8 +4,9 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
@@ -39,7 +40,7 @@ const SignIn = () => {
 
       console.log("Login successful", response.data.user);
       localStorage.setItem("token", response.data.user.token); // Assume the token is returned in response.data.token
-      router.push("/dashboard"); // Redirect to dashboard upon successful login
+      router.push("/organization"); // Redirect to dashboard upon successful login
     } catch (err: any) {
       setError("Failed to log in. Please check your credentials.");
       console.error("Login error:", err.response ? err.response.data : err);
@@ -78,4 +79,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;

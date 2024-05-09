@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 import Link from "next/link";
 import { FaUserInjured } from "react-icons/fa";
 import { Organization } from "@/types/organization";
-import { useSearchParams } from "react-router-dom";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface DashboardHeaderProps {
   organizations: Organization[];
@@ -16,11 +16,26 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   currentOrganization,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const handleSetCurrentOrganization = (org: Organization) => {
     setCurrentOrganization(org);
-    setSearchParams({ organization_id: org.id.toString() });
+    // setSearchParams({ organization_id: org.id.toString() });
+    router.push(
+      pathname + "?" + createQueryString("organization_id", org.id.toString())
+    );
   };
 
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import NavBar from "../components/navbar";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="bg-gradient-to-r from-blue-800 to-cyan-500 h-screen flex flex-col  text-white">
       <NavBar />

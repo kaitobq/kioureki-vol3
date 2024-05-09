@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const SignupForm = () => {
+const SignUpPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -93,4 +93,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignUpPage;
