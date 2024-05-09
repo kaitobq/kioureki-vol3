@@ -1,9 +1,9 @@
 // pages/OrganizationPage.tsx
 "use client";
 
-import DashboardHeader from "@/components/dashboard/dashboardheader";
-import MedicalRecords from "@/components/dashboard/organization/medical-records";
-import MedicalRecordDetail from "@/components/dashboard/organization/medical-record-detail"; // 医療記録詳細コンポーネントをインポート
+import DashboardHeader from "@/components/organization/organization-header";
+import MedicalRecords from "@/components/organization/medical-records";
+import MedicalRecordDetail from "@/components/organization/medical-record-detail"; // 医療記録詳細コンポーネントをインポート
 import { Organization } from "@/types/organization";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";

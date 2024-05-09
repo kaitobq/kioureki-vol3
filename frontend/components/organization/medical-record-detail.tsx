@@ -195,7 +195,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             <p>Date of Injury: {medicalRecord.date_of_injury}</p>
             <p>Return Date: {medicalRecord.return_date}</p>
             <a
-              href={`/dashboard/organization?organization_id=${medicalRecord.organization_id}`}
+              href={`/organization?organization_id=${medicalRecord.organization_id}`}
               className="btn btn-secondary"
             >
               Back
