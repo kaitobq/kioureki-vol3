@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DashboardPage from "./dashboard/page";
+import OrganizationPage from "./organization/page";
+import SignInPage from "./signin/page";
+import HomePage from "./page";
 
 const inter = Inter({ subsets: ["latin"] });
 
