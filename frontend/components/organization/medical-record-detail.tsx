@@ -9,11 +9,13 @@ import { useRouter } from "next/navigation";
 interface MedicalRecordDetailProps {
   recordId: number;
   searchParams: any;
+  // organizationId: number;
 }
 
 const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   recordId,
   searchParams,
+  // organizationId,
 }) => {
   const [medicalRecord, setMedicalRecord] = useState<MedicalRecord | null>(
     null
@@ -32,6 +34,12 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     memo: "",
   });
   const router = useRouter();
+
+  // useEffect(() => {
+  //   if (!searchParams.get("medical_record_id")) {
+  //     router.push(`/organization?organization_id=${organizationId}`);
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
     const fetchMedicalRecord = async () => {
@@ -97,26 +105,31 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   };
 
   const handleDelete = async () => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/medical_records/${recordId}?organization_id=${searchParams.get("organization_id")}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+    // ユーザーに削除の確認を求める
+    if (
+      window.confirm("Are you sure you want to delete this medical record?")
+    ) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:3000/api/medical_records/${recordId}?organization_id=${searchParams.get("organization_id")}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
-      alert("Medical record deleted successfully");
-      setMedicalRecord(null);
-      setIsEditing(false);
-      router.replace(
-        `http://localhost:3001/dashboard/organization?organization_id=${searchParams.get("organization_id")}`
-      );
-      console.log(response.data);
-    } catch (error) {
-      alert("Failed to delete medical record");
-      console.error("Failed to delete record:", error);
+        alert("Medical record deleted successfully");
+        setMedicalRecord(null);
+        setIsEditing(false);
+        router.replace(
+          `http://localhost:3001/dashboard/organization?organization_id=${searchParams.get("organization_id")}`
+        );
+        console.log(response.data);
+      } catch (error) {
+        alert("Failed to delete medical record");
+        console.error("Failed to delete record:", error);
+      }
     }
   };
 
@@ -229,24 +242,26 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                 {medicalRecord.return_date}
               </span>
             </p>
-            <a
-              href={`/organization?organization_id=${medicalRecord.organization_id}`}
-              className="text-blue-500 hover:font-bold duration-75"
-            >
-              Back
-            </a>
-            <button
-              onClick={handleEdit}
-              className="text-green-500 hover:font-bold duration-75"
-            >
-              Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              className="text-red-500 hover:font-bold duration-75"
-            >
-              Delete
-            </button>
+            <div className="*:text-lg flex justify-end">
+              <a
+                href={`/organization?organization_id=${medicalRecord.organization_id}`}
+                className="text-blue-500 hover:font-bold duration-75"
+              >
+                Back
+              </a>
+              <button
+                onClick={handleEdit}
+                className="text-green-500 hover:font-bold duration-75 mx-3"
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="text-red-500 hover:font-bold duration-75"
+              >
+                Delete
+              </button>
+            </div>
           </>
         )}
       </div>
