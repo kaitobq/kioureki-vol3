@@ -3,6 +3,7 @@
 
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { MdNoteAdd } from "react-icons/md";
 import { MedicalRecord } from "@/types/medical-record";
 import Link from "next/link";
 import AddMedicalRecord from "./add-medical-record";
@@ -74,19 +75,27 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center my-5">
-      <h2>Medical Records</h2>
-      <button
-        onClick={openModal}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Open Modal
-      </button>
+      {/* <h2>Medical Records</h2> */}
+      <div className="w-11/12 flex justify-end">
+        <button
+          onClick={openModal}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-row my-3"
+        >
+          Add Record
+          <MdNoteAdd className="size-5" />
+        </button>
+      </div>
       <AddMedicalRecord
         dialogRef={dialogRef}
         closeModal={closeModal}
         organizationId={organizationId}
       />
       <div className="w-11/12 border border-gray-600 px-5 rounded-lg">
+        <div className="flex flex-row my-2 *:text-xl *:mx-3">
+          <h5>Name</h5>
+          <h5>Part</h5>
+          <h5>Diagnosis</h5>
+        </div>
         {medicalRecords.map((record) => (
           <Link
             key={record.id}
