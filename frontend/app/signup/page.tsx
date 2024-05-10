@@ -48,7 +48,7 @@ const SignUpPage = () => {
       // console.log("ff", response);
       localStorage.setItem("token", token);
       console.log("Logged in and token stored!");
-      router.push("/dashboard");
+      router.push("/organization");
     } catch (error: any) {
       setError("Login failed.");
       console.error("Login error:", error.response.data);
@@ -56,39 +56,46 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-mono text-xl">新規登録</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <input
-          required
-          type="text"
-          className="w-1/5 border border-black rounded-md"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          required
-          type="email"
-          className="w-1/5 border-2 rounded-md my-1"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          required
-          type="password"
-          className="w-1/5 border-2 rounded-md"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+    <div className="w-full h-screen flex items-center">
+      <div className="w-1/3 mx-auto px-4">
+        <h1 className="font-xl font-bold my-5">Sign Up</h1>
+        {error && <p className="text-red-500">{error}</p>}
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            required
+            type="text"
+            className="p-2 border rounded"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <input
+            required
+            type="email"
+            className="p-2 border rounded"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            required
+            type="password"
+            className="p-2 border rounded"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
