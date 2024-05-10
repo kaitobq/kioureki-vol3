@@ -1,16 +1,16 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import { FaUserInjured } from "react-icons/fa";
 import { Organization } from "@/types/organization";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface DashboardHeaderProps {
+interface OrganizationHeaderProps {
   organizations: Organization[];
   setCurrentOrganization: (org: Organization) => void;
   currentOrganization: Organization | null;
 }
 
-const DashboardHeader: React.FC<DashboardHeaderProps> = ({
+const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   organizations,
   setCurrentOrganization,
   currentOrganization,
@@ -76,4 +76,4 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   );
 };
 
-export default DashboardHeader;
+export default OrganizationHeader;
