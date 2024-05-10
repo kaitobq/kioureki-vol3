@@ -4,7 +4,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useLocation, useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -48,33 +47,35 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-xl font-bold my-5">Sign In</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <input
-          type="email"
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
-          ref={emailRef}
-          placeholder="Email"
-          className="p-2 border rounded"
-        />
-        <input
-          type="password"
-          // value={password}
-          // onChange={(e) => setPassword(e.target.value)}
-          ref={passwordRef}
-          placeholder="Password"
-          className="p-2 border rounded"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Sign In
-        </button>
-      </form>
+    <div className="w-full h-screen flex items-center">
+      <div className="w-1/3 mx-auto px-4">
+        <h1 className="text-xl font-bold my-5">Sign In</h1>
+        {error && <p className="text-red-500">{error}</p>}
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+            ref={emailRef}
+            placeholder="Email"
+            className="p-2 border rounded"
+          />
+          <input
+            type="password"
+            // value={password}
+            // onChange={(e) => setPassword(e.target.value)}
+            ref={passwordRef}
+            placeholder="Password"
+            className="p-2 border rounded"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
