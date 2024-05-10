@@ -67,7 +67,9 @@ const OrganizationPage = () => {
           );
         }
       } catch (err) {
+        //ここでorganization作成ページへ
         setError("Failed to fetch organizations");
+        router.push("/organization/new");
         console.error(err);
       }
       setLoading(false);
@@ -100,9 +102,9 @@ const OrganizationPage = () => {
       <MedicalRecordDetail
         recordId={currentMedicalRecordId}
         searchParams={searchParams}
+        // organizationId={currentOrganization?.id}
       />
     );
-    console.log("medicl", currentMedicalRecordId);
   }
 
   // 医療記録IDが設定されていない場合、医療記録の一覧を表示します
@@ -124,7 +126,6 @@ const OrganizationPage = () => {
           );
         }}
       />
-      <h1>Organizations: {currentOrganization?.name}</h1>
       {currentOrganization && (
         <MedicalRecords
           organizationId={currentOrganization.id}
