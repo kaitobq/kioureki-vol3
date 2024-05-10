@@ -187,23 +187,64 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
           </form>
         ) : (
           <>
-            <h3>Name: {medicalRecord.name}</h3>
-            <p>Part Affected: {medicalRecord.part}</p>
-            <p>Treatment Status: {medicalRecord.treatment_status}</p>
-            <p>Diagnosis: {medicalRecord.diagnosis}</p>
-            <p>Memo: {medicalRecord.memo || "No additional notes"}</p>
-            <p>Date of Injury: {medicalRecord.date_of_injury}</p>
-            <p>Return Date: {medicalRecord.return_date}</p>
+            <h3>
+              Name:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.name}
+              </span>
+            </h3>
+            <p>
+              Part Affected:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.part}
+              </span>
+            </p>
+            <p>
+              Treatment Status:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.treatment_status}
+              </span>
+            </p>
+            <p>
+              Diagnosis:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.diagnosis}
+              </span>
+            </p>
+            <div className="flex flex-row">
+              <p>Memo:</p>
+              <p className="font-bold text-lg mx-2 whitespace-pre-wrap">
+                {medicalRecord.memo}
+              </p>
+            </div>
+            <p>
+              Date of Injury:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.date_of_injury}
+              </span>
+            </p>
+            <p>
+              Return Date:
+              <span className="font-bold text-lg mx-2">
+                {medicalRecord.return_date}
+              </span>
+            </p>
             <a
               href={`/organization?organization_id=${medicalRecord.organization_id}`}
-              className="btn btn-secondary"
+              className="text-blue-500 hover:font-bold duration-75"
             >
               Back
             </a>
-            <button onClick={handleEdit} className="btn btn-info">
+            <button
+              onClick={handleEdit}
+              className="text-green-500 hover:font-bold duration-75"
+            >
               Edit
             </button>
-            <button onClick={handleDelete} className="btn btn-error">
+            <button
+              onClick={handleDelete}
+              className="text-red-500 hover:font-bold duration-75"
+            >
               Delete
             </button>
           </>
