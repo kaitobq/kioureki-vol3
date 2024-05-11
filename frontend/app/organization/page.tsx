@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Setting from "@/components/organization/setting";
 
 export type activeMenus = "Database" | "Setting";
 
@@ -126,7 +127,9 @@ const OrganizationPage = () => {
           organizationId={currentOrganization.id}
           setCurrentMedicalRecordId={setCurrentMedicalRecordId}
         />
-      ) : null}
+      ) : (
+        <Setting />
+      )}
     </div>
   );
 };
