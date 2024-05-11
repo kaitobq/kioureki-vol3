@@ -1,28 +1,28 @@
 import React, { useCallback, useState } from "react";
 import Link from "next/link";
-import { FaUserInjured } from "react-icons/fa";
-import { IoSettingsSharp } from "react-icons/io5";
 import { Organization } from "@/types/organization";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { activeMenus } from "@/app/organization/page";
 
 interface OrganizationHeaderProps {
   organizations: Organization[];
   setCurrentOrganization: (org: Organization) => void;
   currentOrganization: Organization | null;
+  active: activeMenus;
+  setActive: (menu: activeMenus) => void;
 }
-
-type activeMenus = "Database" | "Setting";
 
 const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   organizations,
   setCurrentOrganization,
   currentOrganization,
+  active,
+  setActive,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [active, setActive] = useState<activeMenus>("Database");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
