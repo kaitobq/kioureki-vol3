@@ -50,17 +50,17 @@ const Setting = () => {
         <p className="m-5">
           ユーザ一人に対して一つの招待コードが利用できます。
         </p>
-        <p className="m-5 font-semibold relative flex items-center">
-          招待コード：
+        <div>
+          <p className="font-semibold">招待コード：</p>
           <input
             readOnly
             value={invitationToken ? invitationToken : ""}
-            className="border-b-2 border-blue-700 flex-grow px-2 py-1"
-          ></input>
+            className=" w-full border-b-2 border-blue-700 flex-grow px-2 py-1 mb-2"
+          />
           <button onClick={handleCopy} className="-ml-8">
             <IoMdCopy className="size-6" />
           </button>
-        </p>
+        </div>
         <div className="text-end">
           <button
             onClick={hancleClick}
