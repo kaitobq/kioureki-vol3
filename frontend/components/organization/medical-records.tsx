@@ -1,4 +1,3 @@
-// pages/dashboard/organization/medicalrecords.tsx
 "use client";
 
 import axios from "axios";
@@ -57,10 +56,6 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
     return <div>Error: {error}</div>;
   }
 
-  // if (medicalRecords.length === 0) {
-  //   return <div>No medical records found for this organization.</div>;
-  // }
-
   const openModal = () => {
     if (dialogRef.current) {
       dialogRef.current.showModal();
@@ -74,14 +69,13 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-col items-center my-5">
-      {/* <h2>Medical Records</h2> */}
+    <div className="w-full flex flex-col items-center py-5 bg-slate-200">
       <div className="w-11/12 flex justify-end">
         <button
           onClick={openModal}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-row my-3"
         >
-          Add Record
+          データを追加する
           <MdNoteAdd className="size-5" />
         </button>
       </div>
@@ -90,16 +84,18 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
         closeModal={closeModal}
         organizationId={organizationId}
       />
-      <div className="w-11/12 border border-gray-600 px-5 rounded-lg">
-        <div className="flex flex-row my-2 *:text-xl *:mx-3">
-          <h5>Name</h5>
-          <h5>Part</h5>
-          <h5>Diagnosis</h5>
+      <div className="w-11/12 bg-white shadow-md px-5 rounded-md">
+        <div className="flex flex-row my-2 p-2 *:text-sm *:text-gray-500 *:font-sans *:font-semibold *:w-1/6 border-b border-gray-300">
+          <h5>名前</h5>
+          <h5>受傷箇所</h5>
+          <h5>診断</h5>
+          <h5 className="ml-20">受傷日</h5>
+          <h5>復帰日</h5>
         </div>
         {medicalRecords.map((record) => (
           <Link
             key={record.id}
-            className="flex flex-row w-full p-2 bg-gray-100 my-2 rounded-lg border border-black cursor-pointer"
+            className="flex flex-row w-full p-2 my-2 border-b border-gray-300 cursor-pointer hover:bg-gray-100 *:font-sans *:text-sm *:font-medium *:text-gray-600"
             href={{
               pathname: "/organization",
               query: {
@@ -109,9 +105,11 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
             }}
             onClick={() => setCurrentMedicalRecordId(record.id)}
           >
-            <h1 className="text-xl m-1 px-5">{record.name}</h1>
-            <h3 className="text-xl m-1 px-5">{record.part}</h3>
-            <h3 className="text-xl m-1 px-5">{record.diagnosis}</h3>
+            <h1 className="text-xl w-1/6">{record.name}</h1>
+            <h3 className="text-xl w-1/6">{record.part}</h3>
+            <h3 className="text-xl w-1/6">{record.diagnosis}</h3>
+            <h3 className="text-xl w-1/6 ml-20">{record.date_of_injury}</h3>
+            <h3 className="text-xl w-1/6">{record.return_date}</h3>
           </Link>
         ))}
       </div>
