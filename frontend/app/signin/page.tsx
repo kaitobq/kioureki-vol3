@@ -49,7 +49,7 @@ const SignInPage = () => {
 
   return (
     <div className="w-full h-screen flex items-center">
-      <div className="w-1/3 mx-auto px-4">
+      <div className="w-2/3 xl:w-1/3 mx-auto px-4">
         <h1 className="text-xl font-bold my-5">Sign In</h1>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">

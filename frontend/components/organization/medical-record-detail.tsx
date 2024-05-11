@@ -146,13 +146,16 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                 </button>
               </div>
             </div>
-            <form onSubmit={handleSave} className="font-serif *:text-sm px-20">
-              <div className="flex my-5">
+            <form
+              onSubmit={handleSave}
+              className="font-serif *:text-sm px-3 sm:px-20"
+            >
+              <div className="flex my-1 sm:my-5">
                 <div>
                   <h3>名前:</h3>
                   <input
                     defaultValue={medicalRecord.name}
-                    className={`${recordClass} pl-5 w-72`}
+                    className={`${recordClass} pl-5 w-36 sm:w-72`}
                     onChange={(e) =>
                       setEditData({ ...editData, name: e.target.value })
                     }
@@ -162,19 +165,19 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                   <h3>治療状況:</h3>
                   <input
                     defaultValue={medicalRecord.treatment_status}
-                    className={`${recordClass} text-center w-52`}
+                    className={`${recordClass} text-center w-36 sm:w-52`}
                     onChange={(e) =>
                       setEditData({ ...editData, name: e.target.value })
                     }
                   />
                 </div>
               </div>
-              <div className="flex justify-end my-5">
+              <div className="flex justify-end my-1 sm:my-5">
                 <div>
                   <h3>受傷箇所:</h3>
                   <input
                     defaultValue={medicalRecord.part}
-                    className={`${recordClass} text-center w-36`}
+                    className={`${recordClass} text-center w-24 sm:w-36`}
                     onChange={(e) =>
                       setEditData({ ...editData, part: e.target.value })
                     }
@@ -184,7 +187,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                   <h3>診断:</h3>
                   <input
                     defaultValue={medicalRecord.diagnosis}
-                    className={`${recordClass} text-center w-72`}
+                    className={`${recordClass} text-center w-36 sm:w-72`}
                     onChange={(e) =>
                       setEditData({ ...editData, diagnosis: e.target.value })
                     }
@@ -196,7 +199,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                   <h3>受傷日:</h3>
                   <input
                     defaultValue={medicalRecord.date_of_injury}
-                    className={`${recordClass} text-center w-56`}
+                    className={`${recordClass} text-center w-32 sm:w-56`}
                     onChange={(e) =>
                       setEditData({
                         ...editData,
@@ -209,7 +212,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                   <h3>復帰日:</h3>
                   <input
                     defaultValue={medicalRecord.return_date}
-                    className={`${recordClass} text-center w-56`}
+                    className={`${recordClass} text-center w-32 sm:w-56`}
                     onChange={(e) =>
                       setEditData({ ...editData, return_date: e.target.value })
                     }
@@ -253,31 +256,31 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
                 </button>
               </div>
             </div>
-            <div className="font-serif *:text-sm px-20">
-              <div className="flex my-5">
+            <div className="font-serif *:text-sm px-3 sm:px-20">
+              <div className="flex my-1 sm:my-5">
                 <div>
                   <h3>名前:</h3>
-                  <p className={`${recordClass} pl-5 w-72`}>
+                  <p className={`${recordClass} pl-5 w-36 sm:w-72`}>
                     {medicalRecord.name}
                   </p>
                 </div>
                 <div>
                   <h3>治療状況:</h3>
-                  <p className={`${recordClass} text-center w-52`}>
+                  <p className={`${recordClass} text-center w-36 sm:w-52`}>
                     {medicalRecord.treatment_status}
                   </p>
                 </div>
               </div>
-              <div className="flex justify-end my-5">
+              <div className="flex justify-end my-1 sm:my-5">
                 <div>
                   <h3>受傷箇所:</h3>
-                  <p className={`${recordClass} text-center w-36`}>
+                  <p className={`${recordClass} text-center w-24 sm:w-36`}>
                     {medicalRecord.part}
                   </p>
                 </div>
                 <div>
                   <h3>診断:</h3>
-                  <p className={`${recordClass} text-center w-72`}>
+                  <p className={`${recordClass} text-center w-36 sm:w-72`}>
                     {medicalRecord.diagnosis}
                   </p>
                 </div>
@@ -285,13 +288,13 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
               <div className="flex justify-end">
                 <div>
                   <h3>受傷日:</h3>
-                  <p className={`${recordClass} text-center w-56`}>
+                  <p className={`${recordClass} text-center w-32 sm:w-56`}>
                     {medicalRecord.date_of_injury}
                   </p>
                 </div>
                 <div>
                   <h3>復帰日:</h3>
-                  <p className={`${recordClass} text-center w-56`}>
+                  <p className={`${recordClass} text-center w-32 sm:w-56`}>
                     {medicalRecord.return_date}
                   </p>
                 </div>

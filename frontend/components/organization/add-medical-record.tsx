@@ -73,44 +73,44 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
 
   return (
     <dialog ref={dialogRef} className="p-3 w-2/3 rounded-lg">
-      <h1 className="text-lg text-center my-1">Add new record</h1>
+      <h1 className="text-lg text-center my-1">データを追加</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 gap-4">
           {[
             {
               ref: nameRef,
               placeholder: "Name",
-              label: "Name",
+              label: "名前",
               className: "",
             },
             {
               ref: partRef,
               placeholder: "Part",
-              label: "Part",
+              label: "受傷箇所",
               className: "",
             },
             {
               ref: diagnosisRef,
               placeholder: "Diagnosis",
-              label: "Diagnosis",
+              label: "診断",
               className: "",
             },
             {
               ref: treatmentStatusRef,
               placeholder: "Treatment Status",
-              label: "Treatment Status",
+              label: "治療状況",
               className: "",
             },
             {
               ref: dateOfInjuryRef,
               placeholder: "Date of Injury",
-              label: "Date of Injury",
+              label: "受傷日",
               className: "",
             },
             {
               ref: returnDateRef,
               placeholder: "Return Date",
-              label: "Return Date",
+              label: "復帰日",
               className: "",
             },
           ].map((input, index) => (
@@ -134,7 +134,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
             ref={memoRef}
             id="memo"
             className="textarea textarea-bordered w-full h-24 border-2 border-gray-300 rounded-md"
-            placeholder=" Memo"
+            placeholder="メモ"
           ></textarea>
         </div>
         <div className="flex justify-end space-x-2">
@@ -143,13 +143,13 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
             onClick={closeModal}
             className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105"
           >
-            Close
+            閉じる
           </button>
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105"
           >
-            Submit
+            保存
           </button>
         </div>
       </form>
