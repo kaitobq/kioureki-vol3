@@ -2,18 +2,21 @@ class Api::MembershipsController < ApplicationController
   before_action :authenticate  # ユーザー認証を行う
 
   def create
-    # 重複をチェック
-    existing_membership = Membership.find_by(user_id: @current_user.id, organization_id: membership_params[:organization_id])
-    if existing_membership
-      render json: { status: 'error', message: 'You are already a member of this organization' }, status: :unprocessable_entity
-      return
-    end
-    # @current_userはauthenticateメソッドでセットされる
-    membership = Membership.new(membership_params.merge(user_id: @current_user.id))
-    if membership.save
-      render json: { status: 'success', membership: membership }, status: :created
+    invitation = Invitation.find_by(token: params[:token], accepted: false)
+
+    if invitation
+      organization = Organization.find(invitation.organization_id)
+
+      membership = @current_user.memberships.create(organization_id: organization.id)
+      invitation.update(accepted: true)
+
+      if membership.save
+        render json: { status: 'success', membership: membership, organization_name: organization.name }, status: :created
+      else
+        render json: { status: 'error', errors: membership.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { status: 'error', errors: membership.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'error', message: 'Invalid or expired token' }, status: :unprocessable_entity
     end
   end
 
