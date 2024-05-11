@@ -7,7 +7,7 @@ import MedicalRecordDetail from "@/components/organization/medical-record-detail
 import { Organization } from "@/types/organization";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Setting from "@/components/organization/setting";
 
@@ -107,30 +107,32 @@ const OrganizationPage = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-slate-200">
-      <OrganizationHeader
-        organizations={organizations}
-        currentOrganization={currentOrganization}
-        setCurrentOrganization={(org: Organization) => {
-          setCurrentOrganization(org);
-          router.push(
-            pathname +
-              "?" +
-              createQueryString("organization_id", org?.id.toString())
-          );
-        }}
-        active={active}
-        setActive={setActive}
-      />
-      {currentOrganization && active === "Database" ? (
-        <MedicalRecords
-          organizationId={currentOrganization.id}
-          setCurrentMedicalRecordId={setCurrentMedicalRecordId}
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="w-full h-screen bg-slate-200">
+        <OrganizationHeader
+          organizations={organizations}
+          currentOrganization={currentOrganization}
+          setCurrentOrganization={(org: Organization) => {
+            setCurrentOrganization(org);
+            router.push(
+              pathname +
+                "?" +
+                createQueryString("organization_id", org?.id.toString())
+            );
+          }}
+          active={active}
+          setActive={setActive}
         />
-      ) : (
-        <Setting />
-      )}
-    </div>
+        {currentOrganization && active === "Database" ? (
+          <MedicalRecords
+            organizationId={currentOrganization.id}
+            setCurrentMedicalRecordId={setCurrentMedicalRecordId}
+          />
+        ) : (
+          <Setting />
+        )}
+      </div>
+    </Suspense>
   );
 };
 
