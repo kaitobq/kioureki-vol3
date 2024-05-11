@@ -1,5 +1,6 @@
 import axios from "axios";
-import { FormEventHandler, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 interface AddMedicalRecordProps {
   dialogRef: React.RefObject<HTMLDialogElement>;
@@ -21,8 +22,6 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
   const memoRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-
     const record = {
       name: nameRef.current?.value,
       part: partRef.current?.value,
@@ -35,9 +34,21 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
     };
 
     try {
-      if (Object.values(record).some((value) => !value)) {
+      if (!record.name) {
         e.preventDefault();
-        alert("Please fill out all fields.");
+        alert("名前が未記入です。");
+        return;
+      }
+
+      if (!record.part) {
+        e.preventDefault();
+        alert("受傷箇所が未記入です。");
+        return;
+      }
+
+      if (!record.date_of_injury) {
+        e.preventDefault();
+        alert("受傷日が未記入です。");
         return;
       }
 
@@ -61,10 +72,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      className="p-3 w-2/3 rounded-lg border border-black"
-    >
+    <dialog ref={dialogRef} className="p-3 w-2/3 rounded-lg">
       <h1 className="text-lg text-center my-1">Add new record</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 gap-4">
@@ -113,7 +121,6 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
                 id={input.label.toLowerCase().replace(" ", "_")}
                 className={`block py-1.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${input.className}`}
                 placeholder=" "
-                required
               />
               <label
                 htmlFor={input.label.toLowerCase().replace(" ", "_")}
