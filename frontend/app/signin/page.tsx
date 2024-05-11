@@ -4,6 +4,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import NavBar from "@/components/navbar";
 
 const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
