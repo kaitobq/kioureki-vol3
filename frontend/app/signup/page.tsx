@@ -1,8 +1,10 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaUserInjured } from "react-icons/fa";
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -56,9 +58,15 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center">
-      <div className="w-2/3 xl:w-1/3 mx-auto px-4">
-        <h1 className="font-xl font-bold my-5">Sign Up</h1>
+    <div className="w-full h-screen flex items-center bg-slate-200">
+      <div className="w-2/3 xl:w-1/3 mx-auto px-4 py-5 bg-white rounded-sm shadow-md">
+        <div className="flex justify-center">
+          <Link href="/" className="flex w-fit gap-2 mt-5">
+            <FaUserInjured size={30} />
+            <h1 className="text-3xl font-bold">Kioureki</h1>
+          </Link>
+        </div>
+        <h1 className="font-xl font-bold my-5">アカウントの作成</h1>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
@@ -75,7 +83,7 @@ const SignUpPage = () => {
             type="email"
             className="p-2 border rounded"
             name="email"
-            placeholder="Email"
+            placeholder="someone@example.com"
             value={formData.email}
             onChange={handleChange}
           />
@@ -92,7 +100,7 @@ const SignUpPage = () => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Sign Up
+            次へ
           </button>
         </form>
       </div>

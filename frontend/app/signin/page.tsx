@@ -5,6 +5,8 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/navbar";
+import { FaUserInjured } from "react-icons/fa";
+import Link from "next/link";
 
 const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -48,23 +50,25 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center">
-      <div className="w-2/3 xl:w-1/3 mx-auto px-4">
-        <h1 className="text-xl font-bold my-5">Sign In</h1>
+    <div className="w-full h-screen flex items-center bg-slate-200">
+      <div className="w-2/3 xl:w-1/3 mx-auto px-4 py-5 bg-white rounded-sm shadow-md">
+        <div className="flex justify-center">
+          <Link href="/" className="flex w-fit gap-2 my-5">
+            <FaUserInjured size={30} />
+            <h1 className="text-3xl font-bold">Kioureki</h1>
+          </Link>
+        </div>
+        <h1 className="text-xl font-bold my-5">サインイン</h1>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
             type="email"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
             ref={emailRef}
-            placeholder="Email"
+            placeholder="someone@example.com"
             className="p-2 border rounded"
           />
           <input
             type="password"
-            // value={password}
-            // onChange={(e) => setPassword(e.target.value)}
             ref={passwordRef}
             placeholder="Password"
             className="p-2 border rounded"
@@ -73,7 +77,7 @@ const SignInPage = () => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Sign In
+            次へ
           </button>
         </form>
       </div>
