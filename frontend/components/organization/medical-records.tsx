@@ -84,18 +84,18 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
         closeModal={closeModal}
         organizationId={organizationId}
       />
-      <div className="w-11/12 bg-white shadow-md px-5 rounded-md">
-        <div className="flex flex-row my-2 p-2 *:text-sm *:text-gray-500 *:font-sans *:font-semibold *:w-1/6 border-b border-gray-300">
-          <h5>名前</h5>
-          <h5>受傷箇所</h5>
-          <h5>診断</h5>
-          <h5 className="ml-20">受傷日</h5>
-          <h5>復帰日</h5>
+      <div className="w-11/12 bg-white shadow-md px-1 sm:px-5 rounded-md">
+        <div className="flex flex-row my-2 p-2 *:text-sm *:text-gray-500 *:font-sans *:font-semibold sm:*:w-1/6 border-b border-gray-300">
+          <h5 className="w-1/3">名前</h5>
+          <h5 className="w-1/3">受傷箇所</h5>
+          <h5 className="w-1/2">診断</h5>
+          <h5 className="w-1/2 sm:ml-20">受傷日</h5>
+          <h5 className="hidden sm:inline">復帰日</h5>
         </div>
         {medicalRecords.map((record) => (
           <Link
             key={record.id}
-            className="flex flex-row w-full p-2 my-2 border-b border-gray-300 cursor-pointer hover:bg-gray-100 *:font-sans *:text-sm *:font-medium *:text-gray-600"
+            className="flex flex-row w-full sm:p-2 my-2 border-b border-gray-300 cursor-pointer hover:bg-gray-100 *:font-sans *:text-sm *:font-medium *:text-gray-600"
             href={{
               pathname: "/organization",
               query: {
@@ -105,11 +105,15 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
             }}
             onClick={() => setCurrentMedicalRecordId(record.id)}
           >
-            <h1 className="text-xl w-1/6">{record.name}</h1>
-            <h3 className="text-xl w-1/6">{record.part}</h3>
-            <h3 className="text-xl w-1/6">{record.diagnosis}</h3>
-            <h3 className="text-xl w-1/6 ml-20">{record.date_of_injury}</h3>
-            <h3 className="text-xl w-1/6">{record.return_date}</h3>
+            <h1 className="text-xl w-1/3 sm:w-1/6">{record.name}</h1>
+            <h3 className="text-xl w-1/3 sm:w-1/6">{record.part}</h3>
+            <h3 className="text-xl w-1/2 sm:w-1/6">{record.diagnosis}</h3>
+            <h3 className="text-xl w-1/2 sm:w-1/6 sm:ml-20">
+              {record.date_of_injury}
+            </h3>
+            <h3 className="text-xl w-1/6 hidden sm:inline">
+              {record.return_date}
+            </h3>
           </Link>
         ))}
       </div>
