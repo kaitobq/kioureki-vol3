@@ -11,6 +11,8 @@ interface OrganizationHeaderProps {
   currentOrganization: Organization | null;
 }
 
+type activeMenus = "Database" | "Setting";
+
 const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   organizations,
   setCurrentOrganization,
@@ -20,6 +22,7 @@ const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const [active, setActive] = useState<activeMenus>("Database");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -41,48 +44,48 @@ const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   };
 
   return (
-    <div className="flex flex-col justify-center items-center py-3 bg-slate-200">
-      <header className="bg-gradient-to-r from-gray-800 to-blue-800 text-white w-3/5 rounded-full shadow-md shadow-black">
-        <div className="container mx-auto flex justify-between items-center py-4 px-6">
-          <Link href={"/"} className="flex items-center">
-            <FaUserInjured size={30} />
-            <span className="text-lg font-bold">Kioureki</span>
-          </Link>
-          <div className="flex flex-row">
-            <div className="relative">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold mx-2 py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {currentOrganization
-                  ? currentOrganization.name
-                  : "Select Organization"}
-                {isOpen ? "↑" : "↓"}
-              </button>
-              {isOpen && (
-                <ul className="absolute bg-slate-100 shadow-lg rounded w-full flex flex-col items-center left-1/2 transform -translate-x-1/2">
-                  {organizations.map((org) => (
-                    <li
-                      key={org.id}
-                      className={`m-0.5 px-4 py-2 cursor-pointer rounded-lg ${currentOrganization && currentOrganization.id === org.id ? "bg-gray-800 hover:bg-gray-600" : "bg-blue-800 hover:bg-blue-600"}`}
-                      onClick={() => handleSetCurrentOrganization(org)}
-                    >
-                      {org.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <a
-              href={`organization/setting?organization_id=${currentOrganization?.id}`}
-              className="flex items-center text-xl hover:rotate-90 ease-in-out duration-300"
-            >
-              <IoSettingsSharp />
-            </a>
+    <>
+      <div className="h-20 bg-white">
+        <div className="h-15 border-b px-5 py-2 my-2 font-bold text-xl">
+          <Link href="/">Kioureki</Link>
+        </div>
+        <div className="h-5 my-2 mx-5 flex items-center gap-5">
+          <button
+            onClick={() => setActive("Database")}
+            className={`font-semibold text-sm ${active === "Database" ? "border-b-4 border-blue-700" : null}`}
+          >
+            Database
+          </button>
+          <button
+            onClick={() => setActive("Setting")}
+            className={`font-semibold text-sm ${active === "Setting" ? "border-b-4 border-blue-700" : null}`}
+          >
+            Setting
+          </button>
+          <div className="flex flex-col items-center px-5 font-semibold">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {currentOrganization
+                ? currentOrganization.name
+                : "Select Organization"}
+              {isOpen ? "↑" : "↓"}
+            </button>
+            {isOpen && (
+              <ul className="flex flex-col items-center absolute mt-7 text-center bg-white shadow-lg rounded border font-semibold text-sm">
+                {organizations.map((org) => (
+                  <li
+                    key={org.id}
+                    className={`w-fit min-w-20 m-0.5 px-2 py-0.5 cursor-pointer rounded-md ${currentOrganization && currentOrganization.id === org.id ? "bg-blue-700 text-white hover:bg-gray-600" : "bg-white hover:shadow-lg hover:bg-gray-200"}`}
+                    onClick={() => handleSetCurrentOrganization(org)}
+                  >
+                    {org.name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </>
   );
 };
 
