@@ -3,27 +3,27 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MedicalRecord } from "@/types/medical-record"; // 医療記録の型定義をインポート
+import { TbArrowBackUp } from "react-icons/tb";
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { MedicalRecord } from "@/types/medical-record";
 import { useRouter } from "next/navigation";
 
 interface MedicalRecordDetailProps {
   recordId: number;
   searchParams: any;
-  // organizationId: number;
 }
 
 const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   recordId,
   searchParams,
-  // organizationId,
 }) => {
   const [medicalRecord, setMedicalRecord] = useState<MedicalRecord | null>(
     null
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isEditing, setIsEditing] = useState(false); // 編集モードの状態
-
+  const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     name: "",
     part: "",
@@ -34,12 +34,6 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     memo: "",
   });
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!searchParams.get("medical_record_id")) {
-  //     router.push(`/organization?organization_id=${organizationId}`);
-  //   }
-  // }, [searchParams]);
 
   useEffect(() => {
     const fetchMedicalRecord = async () => {
@@ -66,7 +60,6 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
 
   useEffect(() => {
     if (medicalRecord) {
-      // 現在のmedicalRecordのデータで編集用のstateを初期化
       setEditData({
         name: medicalRecord.name,
         part: medicalRecord.part,
@@ -80,7 +73,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   }, [medicalRecord, isEditing]);
 
   const handleEdit = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,8 +89,8 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
         }
       );
       console.log("Updated Record:", response.data);
-      setMedicalRecord(response.data); // 編集後のデータでmedicalRecordを更新
-      setIsEditing(false); // 編集モードを終了
+      setMedicalRecord(response.data);
+      setIsEditing(false);
     } catch (error) {
       console.error("Failed to update record:", error);
       alert("Failed to update record.");
@@ -105,7 +98,6 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   };
 
   const handleDelete = async () => {
-    // ユーザーに削除の確認を求める
     if (
       window.confirm("Are you sure you want to delete this medical record?")
     ) {
@@ -138,129 +130,178 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   if (!medicalRecord) return <div>No medical record found.</div>;
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <h2>Medical Record Detail</h2>
-      <div className="w-11/12 border border-gray-600 px-5 py-3 rounded-lg">
+    <div className="w-full h-screen flex flex-col items-center bg-slate-200">
+      <div className="w-11/12 bg-white shadow-sm rounded-lg my-10">
         {isEditing ? (
-          // 編集フォームを表示
-          <form onSubmit={handleSave}>
-            {/* 各フィールドの初期値を現在のデータで設定 */}
-            <input
-              defaultValue={medicalRecord.name}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, name: e.target.value })
-              }
-            />
-            <input
-              defaultValue={medicalRecord.part}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, part: e.target.value })
-              }
-            />
-            <input
-              defaultValue={medicalRecord.diagnosis}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, diagnosis: e.target.value })
-              }
-            />
-            <input
-              defaultValue={medicalRecord.treatment_status}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, treatment_status: e.target.value })
-              }
-            />
-            <input
-              defaultValue={medicalRecord.date_of_injury}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, date_of_injury: e.target.value })
-              }
-            />
-            <input
-              defaultValue={medicalRecord.return_date}
-              className="input input-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, return_date: e.target.value })
-              }
-            />
-            <textarea
-              defaultValue={medicalRecord.memo}
-              className="textarea textarea-bordered w-full"
-              onChange={(e) =>
-                setEditData({ ...editData, memo: e.target.value })
-              }
-            />
-            <button type="submit" className="btn btn-primary">
-              Save Changes
-            </button>
-          </form>
-        ) : (
           <>
-            <h3>
-              Name:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.name}
-              </span>
-            </h3>
-            <p>
-              Part Affected:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.part}
-              </span>
-            </p>
-            <p>
-              Treatment Status:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.treatment_status}
-              </span>
-            </p>
-            <p>
-              Diagnosis:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.diagnosis}
-              </span>
-            </p>
-            <div className="flex flex-row">
-              <p>Memo:</p>
-              <p className="font-bold text-lg mx-2 whitespace-pre-wrap">
-                {medicalRecord.memo}
-              </p>
-            </div>
-            <p>
-              Date of Injury:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.date_of_injury}
-              </span>
-            </p>
-            <p>
-              Return Date:
-              <span className="font-bold text-lg mx-2">
-                {medicalRecord.return_date}
-              </span>
-            </p>
-            <div className="*:text-lg flex justify-end">
+            <div className="flex justify-between h-15 px-5 py-2">
               <a
                 href={`/organization?organization_id=${medicalRecord.organization_id}`}
-                className="text-blue-500 hover:font-bold duration-75"
               >
-                Back
+                <TbArrowBackUp className="size-8 text-gray-600 hover:text-blue-600 duration-75" />
               </a>
-              <button
-                onClick={handleEdit}
-                className="text-green-500 hover:font-bold duration-75 mx-3"
+              <div className="flex gap-2">
+                <button onClick={handleEdit} className="flex items-end">
+                  <CiEdit className="size-8 text-gray-600 hover:text-blue-600 duration-75" />
+                </button>
+              </div>
+            </div>
+            <form onSubmit={handleSave} className="font-serif *:text-sm px-20">
+              <div className="flex my-5">
+                <div>
+                  <h3>名前:</h3>
+                  <input
+                    defaultValue={medicalRecord.name}
+                    className={`${recordClass} pl-5 w-72`}
+                    onChange={(e) =>
+                      setEditData({ ...editData, name: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <h3>治療状況:</h3>
+                  <input
+                    defaultValue={medicalRecord.treatment_status}
+                    className={`${recordClass} text-center w-52`}
+                    onChange={(e) =>
+                      setEditData({ ...editData, name: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end my-5">
+                <div>
+                  <h3>受傷箇所:</h3>
+                  <input
+                    defaultValue={medicalRecord.part}
+                    className={`${recordClass} text-center w-36`}
+                    onChange={(e) =>
+                      setEditData({ ...editData, part: e.target.value })
+                    }
+                  />
+                </div>
+                <div>
+                  <h3>診断:</h3>
+                  <input
+                    defaultValue={medicalRecord.diagnosis}
+                    className={`${recordClass} text-center w-72`}
+                    onChange={(e) =>
+                      setEditData({ ...editData, diagnosis: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div>
+                  <h3>受傷日:</h3>
+                  <input
+                    defaultValue={medicalRecord.date_of_injury}
+                    className={`${recordClass} text-center w-56`}
+                    onChange={(e) =>
+                      setEditData({
+                        ...editData,
+                        date_of_injury: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <h3>復帰日:</h3>
+                  <input
+                    defaultValue={medicalRecord.return_date}
+                    className={`${recordClass} text-center w-56`}
+                    onChange={(e) =>
+                      setEditData({ ...editData, return_date: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col my-5">
+                <h3>メモ:</h3>
+                <textarea
+                  defaultValue={medicalRecord.memo}
+                  className={`${recordClass} whitespace-pre-wrap h-32`}
+                  onChange={(e) =>
+                    setEditData({ ...editData, memo: e.target.value })
+                  }
+                />
+              </div>
+              <div className="flex justify-end mb-5">
+                <button
+                  type="submit"
+                  className="px-3 py-1 font-bold rounded-md text-white bg-gray-500 shadow-md hover:bg-blue-700 hover:scale-105 duration-75"
+                >
+                  保存する
+                </button>
+              </div>
+            </form>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-between h-15 px-5 py-2">
+              <a
+                href={`/organization?organization_id=${medicalRecord.organization_id}`}
               >
-                Edit
-              </button>
-              <button
-                onClick={handleDelete}
-                className="text-red-500 hover:font-bold duration-75"
-              >
-                Delete
-              </button>
+                <TbArrowBackUp className="size-8 text-gray-600 hover:text-blue-600 duration-75" />
+              </a>
+              <div className="flex gap-2">
+                <button onClick={handleDelete}>
+                  <RiDeleteBin6Line className="size-6 text-gray-600 hover:text-blue-600 duration-75" />
+                </button>
+                <button onClick={handleEdit} className="flex items-end">
+                  <CiEdit className="size-8 text-gray-600 hover:text-blue-600 duration-75" />
+                </button>
+              </div>
+            </div>
+            <div className="font-serif *:text-sm px-20">
+              <div className="flex my-5">
+                <div>
+                  <h3>名前:</h3>
+                  <p className={`${recordClass} pl-5 w-72`}>
+                    {medicalRecord.name}
+                  </p>
+                </div>
+                <div>
+                  <h3>治療状況:</h3>
+                  <p className={`${recordClass} text-center w-52`}>
+                    {medicalRecord.treatment_status}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-end my-5">
+                <div>
+                  <h3>受傷箇所:</h3>
+                  <p className={`${recordClass} text-center w-36`}>
+                    {medicalRecord.part}
+                  </p>
+                </div>
+                <div>
+                  <h3>診断:</h3>
+                  <p className={`${recordClass} text-center w-72`}>
+                    {medicalRecord.diagnosis}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div>
+                  <h3>受傷日:</h3>
+                  <p className={`${recordClass} text-center w-56`}>
+                    {medicalRecord.date_of_injury}
+                  </p>
+                </div>
+                <div>
+                  <h3>復帰日:</h3>
+                  <p className={`${recordClass} text-center w-56`}>
+                    {medicalRecord.return_date}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col my-5">
+                <h3>メモ:</h3>
+                <p className={`${recordClass} whitespace-pre-wrap h-32`}>
+                  {medicalRecord.memo}
+                </p>
+              </div>
             </div>
           </>
         )}
@@ -270,3 +311,6 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
 };
 
 export default MedicalRecordDetail;
+
+const recordClass =
+  "font-bold text-lg mx-2 py-0.5 shadow-sm text-gray-700 rounded-md border border-gray-200";

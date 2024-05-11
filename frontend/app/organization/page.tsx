@@ -109,7 +109,7 @@ const OrganizationPage = () => {
 
   // 医療記録IDが設定されていない場合、医療記録の一覧を表示します
   return (
-    <div>
+    <div className="w-full h-screen bg-slate-200">
       <DashboardHeader
         organizations={organizations}
         currentOrganization={currentOrganization}
