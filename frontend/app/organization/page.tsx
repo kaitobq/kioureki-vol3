@@ -1,7 +1,7 @@
 // pages/OrganizationPage.tsx
 "use client";
 
-import DashboardHeader from "@/components/organization/organization-header";
+import OrganizationHeader from "@/components/organization/organization-header";
 import MedicalRecords from "@/components/organization/medical-records";
 import MedicalRecordDetail from "@/components/organization/medical-record-detail"; // 医療記録詳細コンポーネントをインポート
 import { Organization } from "@/types/organization";
@@ -9,6 +9,8 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+
+export type activeMenus = "Database" | "Setting";
 
 const OrganizationPage = () => {
   const searchParams = useSearchParams();
@@ -21,7 +23,8 @@ const OrganizationPage = () => {
     useState<Organization | null>(null);
   const [currentMedicalRecordId, setCurrentMedicalRecordId] = useState<
     number | null
-  >(null); // 医療記録IDの状態
+  >(null);
+  const [active, setActive] = useState<activeMenus>("Database");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -60,14 +63,12 @@ const OrganizationPage = () => {
           router.push(
             pathname + "?" + createQueryString("organization_id", initialOrgId)
           );
-          // setSearchParams({ organization_id: initialOrgId }, { replace: true });
           setCurrentOrganization(
             response.data.find((o: any) => o.id.toString() === initialOrgId) ||
               null
           );
         }
       } catch (err) {
-        //ここでorganization作成ページへ
         setError("Failed to fetch organizations");
         router.push("/organization/new");
         console.error(err);
@@ -79,7 +80,6 @@ const OrganizationPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    // 組織IDが変更されたときに、現在の組織を更新します
     const orgId = searchParams.get("organization_id");
     if (orgId && organizations.length > 0) {
       setCurrentOrganization(
@@ -96,42 +96,37 @@ const OrganizationPage = () => {
     return <div>{error}</div>;
   }
 
-  // 医療記録IDが設定されている場合、詳細ページを表示します
   if (currentMedicalRecordId) {
     return (
       <MedicalRecordDetail
         recordId={currentMedicalRecordId}
         searchParams={searchParams}
-        // organizationId={currentOrganization?.id}
       />
     );
   }
 
-  // 医療記録IDが設定されていない場合、医療記録の一覧を表示します
   return (
     <div className="w-full h-screen bg-slate-200">
-      <DashboardHeader
+      <OrganizationHeader
         organizations={organizations}
         currentOrganization={currentOrganization}
         setCurrentOrganization={(org: Organization) => {
           setCurrentOrganization(org);
-          // setSearchParams(
-          //   { organization_id: org?.id.toString() },
-          //   { replace: true }
-          // );
           router.push(
             pathname +
               "?" +
               createQueryString("organization_id", org?.id.toString())
           );
         }}
+        active={active}
+        setActive={setActive}
       />
-      {currentOrganization && (
+      {currentOrganization && active === "Database" ? (
         <MedicalRecords
           organizationId={currentOrganization.id}
           setCurrentMedicalRecordId={setCurrentMedicalRecordId}
         />
-      )}
+      ) : null}
     </div>
   );
 };
