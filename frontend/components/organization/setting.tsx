@@ -9,6 +9,7 @@ const Setting = () => {
   const searchParams = useSearchParams();
   const [invitationToken, setInvitationToken] = useState<string | null>();
   const router = useRouter();
+  const [error, setError] = useState<string | null>();
 
   const hancleClick = async () => {
     const organizationId = searchParams.get("organization_id");
@@ -29,7 +30,18 @@ const Setting = () => {
       );
       console.log(response);
       setInvitationToken(response.data.token);
-    } catch (error) {}
+      setError(null);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        setError(
+          `エラー: ${
+            error.response.data.message || "不明なエラーが発生しました。"
+          }`
+        );
+      } else {
+        setError("通信に失敗しました。");
+      }
+    }
   };
 
   const handleCopy = async () => {
@@ -48,6 +60,7 @@ const Setting = () => {
     <div className="w-full h-3/5 flex flex-col items-center my-5">
       <div className="w-3/4 h-full">
         <h5 className="text-2xl font-bold m-10">招待コードの作成</h5>
+        {error && <div className="text-red-500">{error}</div>}
         <p className="m-5">
           ユーザ一人に対して一つの招待コードが利用できます。
         </p>
