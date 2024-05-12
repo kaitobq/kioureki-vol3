@@ -18,9 +18,7 @@ const JoinOrganizationPage = () => {
     try {
       const response = await axios.post(
         "https://kioureki-vol3.onrender.com/api/invitations/accept",
-        {
-          token: token,
-        },
+        { token: token },
         {
           headers: {
             "Content-Type": "application/json",
@@ -29,15 +27,21 @@ const JoinOrganizationPage = () => {
         }
       );
 
-      console.log(response);
-
-      if (response.data.status === "success") {
+      if (response.status === 200 && response.data.status === "success") {
         alert(`${response.data.organization_name}に参加しました！`);
         router.push(
           `/organization?organization_id=${response.data.membership.organization_id}`
         );
+      } else {
+        alert(`エラー: ${response.data.message}`);
       }
-    } catch (error) {}
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        alert(`エラー: ${error.response.data.message}`);
+      } else {
+        alert("通信に失敗しました。");
+      }
+    }
   };
 
   return (
