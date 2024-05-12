@@ -1,36 +1,39 @@
 "use client";
 
-// pages/signin.js
 import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import NavBar from "@/components/navbar";
 import { FaUserInjured } from "react-icons/fa";
 import Link from "next/link";
+import { Loading } from "@yamada-ui/loading";
 
 const SignInPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
 
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
     if (!email) {
       setError("Please enter your email address");
+      setLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please enter your password");
+      setLoading(false);
       return;
     }
 
-    console.log(email, password);
+    console.log("sign in with ", email);
 
     try {
       const response = await axios.post(
@@ -43,13 +46,17 @@ const SignInPage = () => {
         }
       );
 
-      console.log("Login successful", response.data.user);
-      localStorage.setItem("token", response.data.user.token); // Assume the token is returned in response.data.token
-      router.push("/organization"); // Redirect to dashboard upon successful login
-    } catch (err: any) {
+      console.log("Login success:", response.data.user);
+      localStorage.setItem("token", response.data.user.token);
+      router.push("/organization");
+    } catch (error: any) {
       setError("Failed to log in. Please check your credentials.");
-      console.error("Login error:", err.response ? err.response.data : err);
+      console.error(
+        "Login error:",
+        error.response ? error.response.data : error
+      );
     }
+    setLoading(false);
   };
 
   return (
@@ -80,7 +87,11 @@ const SignInPage = () => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            次へ
+            {loading ? (
+              <Loading variant="oval" size="3xl" color="white" />
+            ) : (
+              "次へ"
+            )}
           </button>
           <div className="flex justify-center">
             <Link href="/signup" className="underline text-blue-700">
