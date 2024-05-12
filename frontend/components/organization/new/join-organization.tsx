@@ -47,7 +47,7 @@ const JoinOrganizationPage = () => {
   return (
     <div className="flex flex-col items-center">
       <h3 className="text-2xl font-bold m-10">
-        招待コードを入力して既存の団体に参加
+        招待コードを入力して既存の組織に参加
       </h3>
       <form
         onSubmit={handleSubmit}
