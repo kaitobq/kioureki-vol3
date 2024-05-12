@@ -11,7 +11,7 @@ const Setting = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>();
 
-  const hancleClick = async () => {
+  const handleClick = async () => {
     const organizationId = searchParams.get("organization_id");
     if (!organizationId) {
       return;
@@ -77,8 +77,8 @@ const Setting = () => {
         </div>
         <div className="text-end">
           <button
-            onClick={hancleClick}
-            onTouchStart={hancleClick}
+            onClick={handleClick}
+            onTouchStart={handleClick}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             作成
