@@ -18,8 +18,15 @@ const NewOrganizationPage = () => {
         <IoChevronBackOutline className="text-xl mr-2" />
         ホームへ戻る
       </a>
+      <a
+        href="/organization"
+        className="flex items-center bg-gray-200 w-fit rounded-md mb-4 p-2 shadow-md hover:bg-gray-300 transition duration-200"
+      >
+        <IoChevronBackOutline className="text-xl mr-2" />
+        組織へ戻る
+      </a>
       <h3 className="mb-4">
-        ご利用のために団体を作成または参加する必要があります。
+        ご利用のために組織を作成または参加する必要があります。
       </h3>
       <div className="flex justify-center space-x-4 mb-4">
         <button
