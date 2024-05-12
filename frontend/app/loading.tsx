@@ -6,7 +6,7 @@ import React from "react";
 const LoadingPage = () => {
   return (
     <div className="w-full h-screen">
-      <Loading variant="oval" size="3xl" color="red.500" />
+      <Loading variant="oval" size="3xl" color="blue.500" />
     </div>
   );
 };
