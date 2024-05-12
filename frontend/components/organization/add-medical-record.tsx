@@ -107,37 +107,37 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
             {
               ref: nameRef,
               placeholder: "Name",
-              label: "名前",
+              label: "名前*",
               className: "",
             },
             {
               ref: partRef,
               placeholder: "Part",
-              label: "受傷箇所",
+              label: "受傷箇所*",
               className: "",
             },
             {
               ref: diagnosisRef,
               placeholder: "Diagnosis",
-              label: "診断",
+              label: "診断 -Optional",
               className: "",
             },
             {
               ref: treatmentStatusRef,
               placeholder: "Treatment Status",
-              label: "治療状況",
+              label: "治療状況 -Optional",
               className: "",
             },
             {
               ref: dateOfInjuryRef,
               placeholder: "Date of Injury",
-              label: "受傷日",
+              label: "受傷日*",
               className: "",
             },
             {
               ref: returnDateRef,
               placeholder: "Return Date",
-              label: "復帰日",
+              label: "復帰日 -Optional",
               className: "",
             },
           ].map((input, index) => (
