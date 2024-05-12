@@ -1,31 +1,53 @@
 "use client";
 
+import { Loading } from "@yamada-ui/loading";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaUserInjured } from "react-icons/fa";
 
 const SignUpPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
   const router = useRouter();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
+    const name = nameRef.current?.value;
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    if (!name) {
+      setError("Please enter your name");
+      setLoading(false);
+      return;
+    }
+    if (!email) {
+      setError("Please enter your email address");
+      setLoading(false);
+      return;
+    }
+    if (!password) {
+      setError("Please enter your password");
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
         {
-          user: formData,
+          user: {
+            name: name,
+            email: email,
+            password: password,
+          },
         }
       );
       console.log("Signup success:", response.data);
@@ -38,16 +60,20 @@ const SignUpPage = () => {
       );
       console.error("Signup error:", error);
     }
+    setLoading(false);
   };
 
   const login = async () => {
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
         {
           user: {
-            email: formData.email,
-            password: formData.password,
+            email: email,
+            password: password,
           },
         }
       );
@@ -74,37 +100,32 @@ const SignUpPage = () => {
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
-            required
             type="text"
             className="p-2 border rounded"
-            name="name"
             placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
+            ref={nameRef}
           />
           <input
-            required
             type="email"
             className="p-2 border rounded"
-            name="email"
             placeholder="someone@example.com"
-            value={formData.email}
-            onChange={handleChange}
+            ref={emailRef}
           />
           <input
-            required
             type="password"
             className="p-2 border rounded"
-            name="password"
             placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
+            ref={passwordRef}
           />
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            次へ
+            {loading ? (
+              <Loading variant="oval" size="3xl" color="white" />
+            ) : (
+              "次へ"
+            )}
           </button>
         </form>
       </div>
