@@ -1,0 +1,21 @@
+databases:
+  - name: kioureki-vol3-db
+    databaseName: kioureki_vol3_db
+    user: kioureki-vol3
+    region: singapore
+
+services:
+  - type: web
+    name: kioureki-vol3
+    env: ruby
+    region: singapore
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kioureki-vol3-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
