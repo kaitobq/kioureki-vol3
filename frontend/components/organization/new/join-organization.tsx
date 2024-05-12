@@ -27,17 +27,19 @@ const JoinOrganizationPage = () => {
         }
       );
 
+      console.log(response);
+
       if (response.status === 201 && response.data.status === "success") {
         alert(`${response.data.organization_name}に参加しました！`);
         router.push(
           `/organization?organization_id=${response.data.membership.organization_id}`
         );
       } else {
-        alert(`エラー: ${response.data.message}`);
+        alert(`エラー1: ${response.data.message}`);
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        alert(`エラー: ${error.response.data.message}`);
+        alert(`エラー2: ${error.response.data.message}`);
       } else {
         alert("通信に失敗しました。");
       }
