@@ -6,22 +6,23 @@ import { MdNoteAdd } from "react-icons/md";
 import { MedicalRecord } from "@/types/medical-record";
 import Link from "next/link";
 import AddMedicalRecord from "./add-medical-record";
+import MedicalRecordDetail from "./medical-record-detail";
+import { useSearchParams } from "next/navigation";
+import { Loading } from "@yamada-ui/loading";
 
 interface MedicalRecordsProps {
   organizationId: number;
-  setCurrentMedicalRecordId: React.Dispatch<
-    React.SetStateAction<number | null>
-  >;
 }
 
-const MedicalRecords: React.FC<MedicalRecordsProps> = ({
-  organizationId,
-  setCurrentMedicalRecordId,
-}) => {
+const MedicalRecords: React.FC<MedicalRecordsProps> = ({ organizationId }) => {
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const [currentMedicalRecordId, setCurrentMedicalRecordId] = useState<
+    number | null
+  >(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchMedicalRecords = async () => {
@@ -49,12 +50,16 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
   }, [organizationId]);
 
   if (loading) {
-    return <div>Loading medical records...</div>;
+    return (
+      <div>
+        <Loading variant="oval" size="3xl" color="red.500" />
+      </div>
+    );
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   const openModal = () => {
     if (dialogRef.current) {
@@ -67,6 +72,15 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({
       dialogRef.current.close();
     }
   };
+
+  if (currentMedicalRecordId) {
+    return (
+      <MedicalRecordDetail
+        recordId={currentMedicalRecordId}
+        searchParams={searchParams}
+      />
+    );
+  }
 
   return (
     <div className="w-full flex flex-col items-center py-5 bg-slate-200">
