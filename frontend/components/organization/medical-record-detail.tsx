@@ -120,10 +120,8 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
         alert("Medical record deleted successfully");
         setMedicalRecord(null);
         setIsEditing(false);
-        router.replace(
-          `http://localhost:3001/dashboard/organization?organization_id=${searchParams.get(
-            "organization_id"
-          )}`
+        router.push(
+          `/organization?organization_id=${searchParams.get("organization_id")}`
         );
         console.log(response.data);
       } catch (error) {
