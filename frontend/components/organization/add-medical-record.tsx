@@ -20,8 +20,10 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
   const dateOfInjuryRef = useRef<HTMLInputElement | null>(null);
   const returnDateRef = useRef<HTMLInputElement | null>(null);
   const memoRef = useRef<HTMLTextAreaElement | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const record = {
       name: nameRef.current?.value,
       part: partRef.current?.value,
@@ -65,6 +67,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
 
       console.log("Record added:", response.data);
       closeModal();
+      router.refresh();
     } catch (error) {
       console.error("Failed to add record:", error);
       alert("Failed to add record.");
