@@ -8,6 +8,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins "kioureki-vol3.vercel.app"
+      # origins "localhost:3001"
 
       resource "*",
         headers: :any,
