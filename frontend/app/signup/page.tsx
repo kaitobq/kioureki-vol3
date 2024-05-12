@@ -52,7 +52,6 @@ const SignUpPage = () => {
         }
       );
       const { token } = response.data.user;
-      // console.log("ff", response);
       localStorage.setItem("token", token);
       console.log("Logged in and token stored!");
       router.push("/organization");
