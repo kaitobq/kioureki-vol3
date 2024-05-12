@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Organization } from "@/types/organization";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -21,6 +21,17 @@ const OrganizationHeader: React.FC<OrganizationHeaderProps> = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!currentOrganization) {
+      return;
+    }
+    router.push(
+      pathname +
+        "?" +
+        createQueryString("organization_id", currentOrganization.id.toString())
+    );
+  }, [currentOrganization]);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
