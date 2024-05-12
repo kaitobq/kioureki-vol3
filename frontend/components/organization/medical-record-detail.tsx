@@ -2,7 +2,7 @@
 "use client";
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -24,16 +24,24 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({
-    name: "",
-    part: "",
-    diagnosis: "",
-    treatment_status: "",
-    date_of_injury: "",
-    return_date: "",
-    memo: "",
-  });
   const router = useRouter();
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const treatmentStatusInputRef = useRef<HTMLInputElement>(null);
+  const partInputRef = useRef<HTMLInputElement>(null);
+  const diagnosisInputRef = useRef<HTMLInputElement>(null);
+  const dateOfInjuryInputRef = useRef<HTMLInputElement>(null);
+  const returnDateInputRef = useRef<HTMLInputElement>(null);
+  const memoInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const inputRefs = [
+    nameInputRef,
+    partInputRef,
+    diagnosisInputRef,
+    treatmentStatusInputRef,
+    dateOfInjuryInputRef,
+    returnDateInputRef,
+    memoInputRef,
+  ];
 
   useEffect(() => {
     const fetchMedicalRecord = async () => {
@@ -62,19 +70,18 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     fetchMedicalRecord();
   }, [recordId, searchParams]);
 
-  useEffect(() => {
-    if (medicalRecord) {
-      setEditData({
-        name: medicalRecord.name,
-        part: medicalRecord.part,
-        diagnosis: medicalRecord.diagnosis,
-        treatment_status: medicalRecord.treatment_status,
-        date_of_injury: medicalRecord.date_of_injury,
-        return_date: medicalRecord.return_date || "",
-        memo: medicalRecord.memo || "",
-      });
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const nextInput = inputRefs[index + 1];
+      if (nextInput) {
+        nextInput.current?.focus();
+      }
     }
-  }, [medicalRecord, isEditing]);
+  };
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -82,6 +89,17 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const record = {
+      name: nameInputRef.current?.value,
+      treatment_status: treatmentStatusInputRef.current?.value,
+      part: partInputRef.current?.value,
+      diagnosis: diagnosisInputRef.current?.value,
+      date_of_injury: dateOfInjuryInputRef.current?.value,
+      return_date: returnDateInputRef.current?.value,
+      memo: memoInputRef.current?.value,
+    };
+
     try {
       const response = await axios.put(
         `${
@@ -89,7 +107,15 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
         }/api/medical_records/${recordId}?organization_id=${searchParams.get(
           "organization_id"
         )}`,
-        editData,
+        {
+          name: record.name,
+          part: record.part,
+          diagnosis: record.diagnosis,
+          treatment_status: record.treatment_status,
+          date_of_injury: record.date_of_injury,
+          return_date: record.return_date,
+          memo: record.memo,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -176,23 +202,21 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             <div>
               <h3>名前:</h3>
               <input
+                ref={nameInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 0)}
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.name}
                 className={`${recordClass} pl-5 w-36 sm:w-72`}
-                onChange={(e) =>
-                  setEditData({ ...editData, name: e.target.value })
-                }
               />
             </div>
             <div>
               <h3>治療状況:</h3>
               <input
+                ref={treatmentStatusInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 1)} //なぜか2が先になる
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.treatment_status}
                 className={`${recordClass} text-center w-36 sm:w-52`}
-                onChange={(e) =>
-                  setEditData({ ...editData, name: e.target.value })
-                }
               />
             </div>
           </div>
@@ -200,23 +224,21 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             <div>
               <h3>受傷箇所:</h3>
               <input
+                ref={partInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 2)}
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.part}
                 className={`${recordClass} text-center w-24 sm:w-36`}
-                onChange={(e) =>
-                  setEditData({ ...editData, part: e.target.value })
-                }
               />
             </div>
             <div>
               <h3>診断:</h3>
               <input
+                ref={diagnosisInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 3)}
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.diagnosis}
                 className={`${recordClass} text-center w-36 sm:w-72`}
-                onChange={(e) =>
-                  setEditData({ ...editData, diagnosis: e.target.value })
-                }
               />
             </div>
           </div>
@@ -224,38 +246,32 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             <div>
               <h3>受傷日:</h3>
               <input
+                ref={dateOfInjuryInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 4)}
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.date_of_injury}
                 className={`${recordClass} text-center w-32 sm:w-56`}
-                onChange={(e) =>
-                  setEditData({
-                    ...editData,
-                    date_of_injury: e.target.value,
-                  })
-                }
               />
             </div>
             <div>
               <h3>復帰日:</h3>
               <input
+                ref={returnDateInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 5)}
                 readOnly={!isEditing}
                 defaultValue={medicalRecord.return_date}
                 className={`${recordClass} text-center w-32 sm:w-56`}
-                onChange={(e) =>
-                  setEditData({ ...editData, return_date: e.target.value })
-                }
               />
             </div>
           </div>
           <div className="flex flex-col my-5">
             <h3>メモ:</h3>
             <textarea
+              ref={memoInputRef}
+              onKeyDown={(e) => handleKeyDown(e, 6)}
               readOnly={!isEditing}
               defaultValue={medicalRecord.memo}
               className={`${recordClass} whitespace-pre-wrap h-32`}
-              onChange={(e) =>
-                setEditData({ ...editData, memo: e.target.value })
-              }
             />
           </div>
           <div className="flex justify-end mb-5">
