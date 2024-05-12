@@ -82,7 +82,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http:///api/medical_records/${recordId}?organization_id=${searchParams.get(
+        `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
           "organization_id"
         )}`,
         editData,
