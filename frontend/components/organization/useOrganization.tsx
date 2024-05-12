@@ -56,6 +56,7 @@ const useOrganization = () => {
         }
       } catch (err) {
         setError("Failed to fetch organizations");
+        router.push("/organization/new");
         console.error(err);
       }
       setLoading(false);
