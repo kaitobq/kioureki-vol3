@@ -1,13 +1,14 @@
 "use client";
 
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMdCopy } from "react-icons/io";
 
 const Setting = () => {
   const searchParams = useSearchParams();
   const [invitationToken, setInvitationToken] = useState<string | null>();
+  const router = useRouter();
 
   const hancleClick = async () => {
     const organizationId = searchParams.get("organization_id");
@@ -44,7 +45,7 @@ const Setting = () => {
   };
 
   return (
-    <div className="w-full h-3/5 flex justify-center my-10">
+    <div className="w-full h-3/5 flex flex-col items-center my-5">
       <div className="w-3/4 h-full">
         <h5 className="text-2xl font-bold m-10">招待コードの作成</h5>
         <p className="m-5">
@@ -64,6 +65,18 @@ const Setting = () => {
         <div className="text-end">
           <button
             onClick={hancleClick}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            作成
+          </button>
+        </div>
+      </div>
+      <div className="w-3/4">
+        <h5 className="text-2xl font-bold m-10">組織の新規作成</h5>
+        <div className="flex ">
+          <p className="mx-5">新しい組織を作成、参加する。</p>
+          <button
+            onClick={() => router.push("/organization/new")}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             作成
