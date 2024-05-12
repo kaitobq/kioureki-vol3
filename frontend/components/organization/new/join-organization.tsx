@@ -27,7 +27,7 @@ const JoinOrganizationPage = () => {
         }
       );
 
-      if (response.status === 200 && response.data.status === "success") {
+      if (response.status === 201 && response.data.status === "success") {
         alert(`${response.data.organization_name}に参加しました！`);
         router.push(
           `/organization?organization_id=${response.data.membership.organization_id}`
