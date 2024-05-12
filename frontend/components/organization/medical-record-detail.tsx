@@ -39,7 +39,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     const fetchMedicalRecord = async () => {
       try {
         const response = await axios.get(
-          `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL
+          }/api/medical_records/${recordId}?organization_id=${searchParams.get(
             "organization_id"
           )}`,
           {
@@ -82,7 +84,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
+        `${
+          process.env.NEXT_PUBLIC_BASE_URL
+        }/api/medical_records/${recordId}?organization_id=${searchParams.get(
           "organization_id"
         )}`,
         editData,
@@ -107,7 +111,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     ) {
       try {
         const response = await axios.delete(
-          `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL
+          }/api/medical_records/${recordId}?organization_id=${searchParams.get(
             "organization_id"
           )}`,
           {

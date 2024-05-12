@@ -19,7 +19,7 @@ const Setting = () => {
 
     try {
       const response = await axios.post(
-        `https://kioureki-vol3.onrender.com/api/organizations/${organizationId}/invitations`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/organizations/${organizationId}/invitations`,
         {},
         {
           headers: {

@@ -17,7 +17,7 @@ const CreateOrganizationPage = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://kioureki-vol3.onrender.com/api/organizations",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/organizations`,
         { name: name },
         {
           headers: {
