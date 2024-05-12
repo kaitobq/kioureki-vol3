@@ -28,7 +28,7 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({ organizationId }) => {
     const fetchMedicalRecords = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/medical_records`,
+          `https://kioureki-vol3.onrender.com/api/medical_records`,
           {
             params: { organization_id: organizationId },
             headers: {

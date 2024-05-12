@@ -33,12 +33,15 @@ const SignInPage = () => {
     console.log(email, password);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/login", {
-        user: {
-          email: email,
-          password: password,
-        },
-      });
+      const response = await axios.post(
+        "https://kioureki-vol3.onrender.com/api/login",
+        {
+          user: {
+            email: email,
+            password: password,
+          },
+        }
+      );
 
       console.log("Login successful", response.data.user);
       localStorage.setItem("token", response.data.user.token); // Assume the token is returned in response.data.token

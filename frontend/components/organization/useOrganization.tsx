@@ -36,7 +36,7 @@ const useOrganization = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/organizations",
+          "https://kioureki-vol3.onrender.com/api/organizations",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

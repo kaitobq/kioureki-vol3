@@ -39,7 +39,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     const fetchMedicalRecord = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/medical_records/${recordId}?organization_id=${searchParams.get("organization_id")}`,
+          `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
+            "organization_id"
+          )}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -80,7 +82,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/medical_records/${recordId}?organization_id=${searchParams.get("organization_id")}`,
+        `http:///api/medical_records/${recordId}?organization_id=${searchParams.get(
+          "organization_id"
+        )}`,
         editData,
         {
           headers: {
@@ -103,7 +107,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
     ) {
       try {
         const response = await axios.delete(
-          `http://localhost:3000/api/medical_records/${recordId}?organization_id=${searchParams.get("organization_id")}`,
+          `https://kioureki-vol3.onrender.com/api/medical_records/${recordId}?organization_id=${searchParams.get(
+            "organization_id"
+          )}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -115,7 +121,9 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
         setMedicalRecord(null);
         setIsEditing(false);
         router.replace(
-          `http://localhost:3001/dashboard/organization?organization_id=${searchParams.get("organization_id")}`
+          `http://localhost:3001/dashboard/organization?organization_id=${searchParams.get(
+            "organization_id"
+          )}`
         );
         console.log(response.data);
       } catch (error) {

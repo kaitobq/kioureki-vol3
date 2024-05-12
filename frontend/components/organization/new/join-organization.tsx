@@ -17,7 +17,7 @@ const JoinOrganizationPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/invitations/accept",
+        "https://kioureki-vol3.onrender.com/api/invitations/accept",
         {
           token: token,
         },

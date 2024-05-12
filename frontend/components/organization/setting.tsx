@@ -17,7 +17,7 @@ const Setting = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/organizations/${organizationId}/invitations`,
+        `https://kioureki-vol3.onrender.com/api/organizations/${organizationId}/invitations`,
         {},
         {
           headers: {

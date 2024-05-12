@@ -53,7 +53,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
       }
 
       const response = await axios.post(
-        `http://localhost:3000/api/medical_records?organization_id=${organizationId}`,
+        `https://kioureki-vol3.onrender.com/api/medical_records?organization_id=${organizationId}`,
         record,
         {
           headers: {

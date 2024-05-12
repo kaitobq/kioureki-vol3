@@ -22,17 +22,19 @@ const SignUpPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/users", {
-        user: formData,
-      });
+      const response = await axios.post(
+        "https://kioureki-vol3.onrender.com/api/users",
+        {
+          user: formData,
+        }
+      );
       console.log("Signup success:", response.data);
-      // サインアップ後、自動でログイン
       login();
     } catch (error: any) {
       setError(
         error.response && error.response.data && error.response.data.errors
-          ? error.response.data.errors.body.join(", ") // エラーが配列の場合、文字列に変換
-          : "An unexpected error occurred" // エラーメッセージが不明な場合のデフォルトメッセージ
+          ? error.response.data.errors.body.join(", ")
+          : "An unexpected error occurred"
       );
       console.error("Signup error:", error);
     }
@@ -40,12 +42,15 @@ const SignUpPage = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/login", {
-        user: {
-          email: formData.email,
-          password: formData.password,
-        },
-      });
+      const response = await axios.post(
+        "https://kioureki-vol3.onrender.com/api/login",
+        {
+          user: {
+            email: formData.email,
+            password: formData.password,
+          },
+        }
+      );
       const { token } = response.data.user;
       // console.log("ff", response);
       localStorage.setItem("token", token);
