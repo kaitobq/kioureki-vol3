@@ -82,6 +82,11 @@ const SignInPage = () => {
           >
             次へ
           </button>
+          <div className="flex justify-center">
+            <Link href="/signup" className="underline text-blue-700">
+              アカウント作成はこちらから
+            </Link>
+          </div>
         </form>
       </div>
     </div>
