@@ -1,8 +1,9 @@
 "use client";
-import CreateOrganization from "@/components/organization/new/create-organization";
-import JoinOrganization from "@/components/organization/new/join-organization";
 import { useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
+
+import CreateOrganization from "@/components/organization/new/create-organization";
+import JoinOrganization from "@/components/organization/new/join-organization";
 
 type Parameter = "create" | "join";
 

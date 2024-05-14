@@ -1,11 +1,11 @@
 "use client";
 
+import { useRef, useState } from "react";
+import { FaUserInjured } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import { Loading } from "@yamada-ui/loading";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { FaUserInjured } from "react-icons/fa";
 
 const SignUpPage = () => {
   const nameRef = useRef<HTMLInputElement>(null);

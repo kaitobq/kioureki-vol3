@@ -1,10 +1,9 @@
 "use client";
 
+import { Suspense, useState } from "react";
+
 import OrganizationHeader from "@/components/organization/organization-header";
 import MedicalRecords from "@/components/organization/medical-records";
-import { useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
-import { usePathname } from "next/navigation";
 import Setting from "@/components/organization/setting";
 import useOrganization from "@/components/organization/useOrganization";
 import LoadingPage from "../loading";

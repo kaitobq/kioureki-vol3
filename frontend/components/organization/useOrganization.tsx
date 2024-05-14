@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { usePathname, useSearchParams } from "next/navigation";
+
 import { Organization } from "@/types/organization";
 
 const useOrganization = () => {

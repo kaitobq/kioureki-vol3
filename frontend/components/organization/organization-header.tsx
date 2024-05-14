@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import { Organization } from "@/types/organization";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+
+import { Organization } from "@/types/organization";
 import { activeMenus } from "@/app/organization/page";
 
 interface OrganizationHeaderProps {

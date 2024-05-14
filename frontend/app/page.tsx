@@ -1,8 +1,9 @@
 "use client";
 
-import NavBar from "@/components/navbar";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
+import NavBar from "@/components/navbar";
 
 export default function HomePage() {
   const [token, setToken] = useState<string | null>(null);

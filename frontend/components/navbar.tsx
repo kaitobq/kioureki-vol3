@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { FaUserInjured } from "react-icons/fa";
+import Link from "next/link";
 
 const NavBar = () => {
   return (
