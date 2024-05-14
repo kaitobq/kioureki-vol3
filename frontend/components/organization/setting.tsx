@@ -66,14 +66,16 @@ const Setting = () => {
         </p>
         <div>
           <p className="font-semibold">招待コード：</p>
-          <input
-            readOnly
-            value={invitationToken ? invitationToken : ""}
-            className=" w-full border-b-2 border-blue-700 flex-grow px-2 py-1 mb-2"
-          />
-          <button onClick={handleCopy} className="-ml-8">
-            <IoMdCopy className="size-6" />
-          </button>
+          <div className="flex">
+            <input
+              readOnly
+              value={invitationToken ? invitationToken : ""}
+              className=" w-full border-b-2 border-blue-700 flex-grow px-2 py-1 mb-2"
+            />
+            <button onClick={handleCopy} className="-ml-8 pb-3">
+              <IoMdCopy className="size-7" />
+            </button>
+          </div>
         </div>
         <div className="text-end">
           <button
