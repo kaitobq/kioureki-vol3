@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ margin: 0 }}>
       <body>
         <NextTopLoader />
         {children}
