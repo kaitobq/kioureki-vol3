@@ -102,7 +102,10 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
     <dialog ref={dialogRef} className="p-3 w-2/3 rounded-lg">
       <h1 className="text-lg text-center my-1">データを追加</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 gap-4">
+        <div
+          className="grid grid-cols-1 gap-4"
+          style={{ transform: "scale(0.95)" }}
+        >
           {[
             {
               ref: nameRef,
@@ -147,7 +150,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
                 ref={input.ref}
                 id={input.label.toLowerCase().replace(" ", "_")}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`block py-1.5 px-0 w-full text-black text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${input.className}`}
+                className={`block py-1.5 w-full text-black text-base bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${input.className}`}
                 placeholder=" "
               />
               <label
@@ -161,7 +164,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
           <textarea
             ref={memoRef}
             id="memo"
-            className="textarea textarea-bordered w-full h-24 border-2 border-gray-300 rounded-md"
+            className="textarea text-base textarea-bordered w-full h-20 border-2 border-gray-300 rounded-md"
             placeholder="メモ"
           ></textarea>
         </div>
@@ -169,13 +172,13 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
           <button
             type="button"
             onClick={closeModal}
-            className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105"
+            className="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-2 rounded-sm shadow transition-all transform hover:scale-105"
           >
             閉じる
           </button>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded-sm shadow transition-all transform hover:scale-105"
           >
             保存
           </button>
