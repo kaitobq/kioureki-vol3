@@ -194,13 +194,10 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             </button>
           </div>
         </div>
-        <form
-          onSubmit={handleSave}
-          className="font-serif *:text-sm px-3 sm:px-20"
-        >
+        <form onSubmit={handleSave} className=" *:text-sm px-3 sm:px-20">
           <div className="flex my-1 sm:my-5">
             <div>
-              <h3>名前:</h3>
+              <h3 className="text-xs sm:text-sm">名前:</h3>
               <input
                 ref={nameInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 0)}
@@ -210,7 +207,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
               />
             </div>
             <div>
-              <h3>治療状況:</h3>
+              <h3 className="text-xs sm:text-sm">治療状況:</h3>
               <input
                 ref={treatmentStatusInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 1)} //なぜか2が先になる
@@ -222,7 +219,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
           </div>
           <div className="flex justify-end my-1 sm:my-5">
             <div>
-              <h3>受傷箇所:</h3>
+              <h3 className="text-xs sm:text-sm">受傷箇所:</h3>
               <input
                 ref={partInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 2)}
@@ -232,7 +229,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
               />
             </div>
             <div>
-              <h3>診断:</h3>
+              <h3 className="text-xs sm:text-sm">診断:</h3>
               <input
                 ref={diagnosisInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 3)}
@@ -244,7 +241,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
           </div>
           <div className="flex justify-end">
             <div>
-              <h3>受傷日:</h3>
+              <h3 className="text-xs sm:text-sm">受傷日:</h3>
               <input
                 ref={dateOfInjuryInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 4)}
@@ -254,7 +251,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
               />
             </div>
             <div>
-              <h3>復帰日:</h3>
+              <h3 className="text-xs sm:text-sm">復帰日:</h3>
               <input
                 ref={returnDateInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 5)}
@@ -265,7 +262,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             </div>
           </div>
           <div className="flex flex-col my-5">
-            <h3>メモ:</h3>
+            <h3 className="text-xs sm:text-sm">メモ:</h3>
             <textarea
               ref={memoInputRef}
               onKeyDown={(e) => handleKeyDown(e, 6)}
@@ -293,4 +290,4 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
 export default MedicalRecordDetail;
 
 const recordClass =
-  "font-bold text-lg mx-2 py-0.5 shadow-sm text-gray-700 rounded-md border border-gray-200";
+  "font-bold text-base sm:text-lg mx-2 shadow-sm text-gray-700 rounded-sm border border-gray-200";
