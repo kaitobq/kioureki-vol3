@@ -1,8 +1,10 @@
 "use client";
 
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+import CustomButton from "@/components/common/button";
 
 const JoinOrganizationPage = () => {
   const tokenRef = useRef<HTMLInputElement | null>(null);
@@ -69,12 +71,9 @@ const JoinOrganizationPage = () => {
         >
           招待コード
         </label>
-        <button
-          type="submit"
-          className="mt-6 bg-gray-500 focus:bg-blue-700 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105 focus:scale-105"
-        >
-          {/* {loading === true ? <p>loading</p> : <>作成</>} */}参加
-        </button>
+        <CustomButton type="submit" mt={6}>
+          参加
+        </CustomButton>
       </form>
     </div>
   );

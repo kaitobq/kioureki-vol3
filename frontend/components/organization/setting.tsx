@@ -1,9 +1,11 @@
 "use client";
 
-import axios from "axios";
-import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { IoMdCopy } from "react-icons/io";
+import axios from "axios";
+
+import CustomButton from "@/components/common/button";
 
 const Setting = () => {
   const searchParams = useSearchParams();
@@ -78,25 +80,25 @@ const Setting = () => {
           </div>
         </div>
         <div className="text-end">
-          <button
+          <CustomButton
             onClick={handleClick}
             onTouchStart={handleClick}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             作成
-          </button>
+          </CustomButton>
         </div>
       </div>
       <div className="w-3/4">
         <h5 className="text-2xl font-bold m-10">組織の新規作成</h5>
-        <div className="flex ">
+        <div className="flex items-center">
           <p className="mx-5">新しい組織を作成、参加する。</p>
-          <button
+          <CustomButton
             onClick={() => router.push("/organization/new")}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             作成
-          </button>
+          </CustomButton>
         </div>
       </div>
     </div>

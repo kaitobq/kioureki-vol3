@@ -1,13 +1,15 @@
 // pages/dashboard/organization/medicalrecorddetail.tsx
 "use client";
 
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { TbArrowBackUp } from "react-icons/tb";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import axios from "axios";
+
 import { MedicalRecord } from "@/types/medical-record";
-import { useRouter } from "next/navigation";
+import CustomButton from "../common/button";
 
 interface MedicalRecordDetailProps {
   recordId: number;
@@ -272,14 +274,12 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             />
           </div>
           <div className="flex justify-end mb-5">
-            <button
+            <CustomButton
               type="submit"
-              className={`px-3 py-1 font-bold rounded-md text-white bg-gray-500 shadow-md hover:bg-blue-700 hover:scale-105 duration-75 ${
-                isEditing ? "inline" : "hidden"
-              }`}
+              display={isEditing ? "inline" : "hidden"}
             >
               保存する
-            </button>
+            </CustomButton>
           </div>
         </form>
       </div>

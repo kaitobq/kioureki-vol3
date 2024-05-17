@@ -1,6 +1,8 @@
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+import CustomButton from "@/components/common/button";
 
 const CreateOrganizationPage = () => {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -57,12 +59,9 @@ const CreateOrganizationPage = () => {
         >
           組織名
         </label>
-        <button
-          type="submit"
-          className="mt-6 bg-gray-500 focus:bg-blue-700 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105 focus:scale-105"
-        >
+        <CustomButton type="submit" mt={6}>
           {loading === true ? <p>loading</p> : <>作成</>}
-        </button>
+        </CustomButton>
       </form>
     </div>
   );
