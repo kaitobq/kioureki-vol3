@@ -150,7 +150,7 @@ const AddMedicalRecord: React.FC<AddMedicalRecordProps> = ({
                 ref={input.ref}
                 id={input.label.toLowerCase().replace(" ", "_")}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`block py-1.5 w-full text-black text-base bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${input.className}`}
+                className={`block py-1.5 w-full rounded-none text-black text-base bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${input.className}`}
                 placeholder=" "
               />
               <label
