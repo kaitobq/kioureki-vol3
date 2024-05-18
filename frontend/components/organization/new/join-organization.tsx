@@ -71,7 +71,7 @@ const JoinOrganizationPage = () => {
         >
           招待コード
         </label>
-        <CustomButton type="submit" mt={6}>
+        <CustomButton type="submit" margin="6 0">
           参加
         </CustomButton>
       </form>

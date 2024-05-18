@@ -59,7 +59,7 @@ const CreateOrganizationPage = () => {
         >
           組織名
         </label>
-        <CustomButton type="submit" mt={6}>
+        <CustomButton type="submit" margin="6 0">
           {loading === true ? <p>loading</p> : <>作成</>}
         </CustomButton>
       </form>
