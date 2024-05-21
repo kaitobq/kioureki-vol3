@@ -20,7 +20,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-blue-800 to-cyan-500 h-screen flex flex-col  text-white">
+    <div className="bg-gradient-to-r from-blue-800 to-cyan-500 min-h-screen flex flex-col  text-white">
       <NavBar />
       <div className="w-full my-16 sm:my-48 xl:my-12 px-10 sm:px-40 py-16 flex flex-col text-center items-center">
         <h1 className="text-3xl sm:text-6xl font-bold m-4">
