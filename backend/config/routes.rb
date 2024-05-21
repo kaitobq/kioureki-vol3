@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'uptime/check'
   namespace :api do
     get 'invitations/create'
   end
