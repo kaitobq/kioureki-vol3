@@ -22,7 +22,7 @@ const OrganizationPage = () => {
 
   return (
     <Suspense fallback={<LoadingPage />}>
-      <div className="w-full h-screen bg-slate-200">
+      <div className="w-full bg-slate-200">
         <OrganizationHeader
           organizations={organizations}
           currentOrganization={currentOrganization}

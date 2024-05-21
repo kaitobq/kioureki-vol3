@@ -93,7 +93,7 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({ organizationId }) => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center pb-5 bg-slate-200">
+    <div className="w-full min-h-screen flex flex-col items-center pb-5 ">
       <div className="w-11/12 m-2 mr-2 flex justify-end">
         <CustomButton onClick={openModal} display="flex" items="center">
           追加 <MdNoteAdd className="size-5" />
@@ -141,6 +141,11 @@ const MedicalRecords: React.FC<MedicalRecordsProps> = ({ organizationId }) => {
           <div>No records found</div>
         )}
       </div>
+      {/* <div className="w-full sm:hidden fixed bottom-0 bg-white">
+        <CustomButton onClick={openModal} display="flex" items="center">
+          追加 <MdNoteAdd className="size-5" />
+        </CustomButton>
+      </div> */}
     </div>
   );
 };
