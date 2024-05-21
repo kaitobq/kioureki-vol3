@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import NavBar from "@/components/navbar";
+import StartGuideLink from "@/components/start-guide-link";
 
 export default function HomePage() {
   const [token, setToken] = useState<string | null>(null);
@@ -39,6 +40,7 @@ export default function HomePage() {
           </a>
         </Link>
       </div>
+      <StartGuideLink />
     </div>
   );
 }
