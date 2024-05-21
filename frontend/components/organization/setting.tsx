@@ -59,7 +59,7 @@ const Setting = () => {
   };
 
   return (
-    <div className="w-full h-3/5 flex flex-col items-center my-5">
+    <div className="w-full flex flex-col items-center">
       <div className="w-3/4 h-full">
         <h5 className="text-2xl font-bold m-10">招待コードの作成</h5>
         {error && <div className="text-red-500">{error}</div>}
@@ -89,7 +89,7 @@ const Setting = () => {
           </CustomButton>
         </div>
       </div>
-      <div className="w-3/4">
+      <div className="w-3/4 py-14">
         <h5 className="text-2xl font-bold m-10">組織の新規作成</h5>
         <div className="flex items-center">
           <p className="mx-5">新しい組織を作成、参加する。</p>
