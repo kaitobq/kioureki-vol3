@@ -12,7 +12,7 @@ const NavBar = () => {
           </Link>
           <Link href="/signin" className="" legacyBehavior>
             <a className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
-              Sign In
+              サインイン
             </a>
           </Link>
         </div>

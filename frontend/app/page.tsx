@@ -35,7 +35,7 @@ export default function HomePage() {
           legacyBehavior
         >
           <a className="inline-block w-3/5 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all transform hover:scale-110">
-            Get Started →
+            {token ? "データベースに戻る →" : "始める →"}
           </a>
         </Link>
       </div>
